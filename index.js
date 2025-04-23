@@ -1,30 +1,26 @@
-
-
-
-function createDivArray(outerDiv, n, depth = 2, direction = 'column', height = 100, width = 100) {
-    // Base case: if depth is 0, stop recursion
-    if (depth <= 0) return [];
+function createGrid(outerDiv, rows, cols, height = 10, width = 10) {
+    // Create container with column direction
+    const container = document.createElement('div');
+    container.style.cssText = `display: flex; flex-direction: column;`;
+    outerDiv.appendChild(container);
     
-    let divArray = [];
-    for (let i=0; i<n; i++) {
-        const newDiv = document.createElement('div');
+    // Create rows
+    for (let i = 0; i < rows; i++) {
+        const rowDiv = document.createElement('div');
+        rowDiv.style.cssText = `display: flex; flex-direction: row;`;
+        container.appendChild(rowDiv);
         
-        // Only make recursive call if depth > 1
-        if (depth > 1) {
-            // Call with reduced depth and ALTERNATE direction (not assign)
-            createDivArray(newDiv, 5, depth - 1, direction === 'column' ? 'row' : 'column');
+        // Create cells in each row
+        for (let j = 0; j < cols; j++) {
+            const cell = document.createElement('div');
+            cell.style.cssText = `height: ${height}px; width: ${width}px; background-color: blue; margin: 1px;`;
+            cell.addEventListener('mouseenter', () => {cell.style.backgroundColor = 'black'})
+            rowDiv.appendChild(cell);
         }
-        
-        newDiv.style.cssText = `height: ${height}px; width: ${width}px; display: flex; flex-direction: ${direction}; background-color: blue; margin: 10px`;
-        divArray.push(newDiv);
-        outerDiv.appendChild(newDiv);
     }
-    return divArray;
 }
 
-
 const body = document.querySelector('body');
-createDivArray(body, 5);
-
+createGrid(body, 50, 50); // Create a 5x5 grid
 
 
