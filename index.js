@@ -20,7 +20,24 @@ function createGrid(outerDiv, rows, cols, width = 960) {
     }
 }
 
+function getUserInput() {
+    let gridSize = 101;
+    while (gridSize >= 100) {
+     gridSize = prompt("Please enter a grid size less than 100:");
+    }
+    container.innerHTML = ''
+    createGrid(container, gridSize, gridSize);
+    body.appendChild(container);
+
+}
+
 const body = document.querySelector('body');
-createGrid(body, 100, 100); // Create a 5x5 grid
+const button = document.querySelector('#button');
+
+button.addEventListener('click', getUserInput);
+const container = document.createElement('div');
+
+createGrid(container, 100, 100); // Create a 5x5 grid
+body.appendChild(container);
 
 
